@@ -7,6 +7,9 @@ from engine.constants import WINDOW_WIDTH, WINDOW_HEIGHT
 from pygame.math import Vector2
 from pygame.sprite import Sprite
 
+import math
+import pygame
+
 class Enemy(Sprite):
     "The enemy sprite class"
 
@@ -19,17 +22,19 @@ class Enemy(Sprite):
         """
         Sprite.__init__(self)
         self.waypoints = waypoints
-        self.pos = Vector2(self.waypoints[0])
+        self.position = Vector2(self.waypoints[0])
         self.target_waypoint = 1
         self.speed = 2
-        self.image = image
-        self.rect = self.image.get_rect()
-        self.rect.center = self.pos
+        self.angle = 0
+        self.original_image = image
+        self.rotate_and_update_image()
 
 
     def update(self):
         "Updates the enemy"
         self.move()
+        self.calculate_rotation()
+        self.rotate_and_update_image()
 
 
     def move(self):
@@ -43,15 +48,25 @@ class Enemy(Sprite):
             return
         #
         self.target = Vector2(self.waypoints[self.target_waypoint])
-        self.movement = self.target - self.pos
+        self.movement = self.target - self.position
         
         distance = self.movement.length()
         if distance >= self.speed:
-            self.pos += self.movement.normalize() * self.speed
+            self.position += self.movement.normalize() * self.speed
         else:
             if distance != 0:
-                self.pos += self.movement.normalize() * distance
+                self.position += self.movement.normalize() * distance
             #
             self.target_waypoint += 1
-        #
-        self.rect.center = self.pos
+
+
+    def calculate_rotation(self):
+        "Calculate rotation"
+        (x, y) = self.target - self.position
+        self.angle = math.degrees(math.atan2(-y, x))
+
+
+    def rotate_and_update_image(self):
+        self.image = pygame.transform.rotate(self.original_image, self.angle)
+        self.rect = self.image.get_rect()
+        self.rect.center = self.position

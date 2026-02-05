@@ -1,4 +1,9 @@
-"""Loads levels"""
+"""Loads levels
+
+Typical Usage Example:
+    level_loader = LevelLoader()
+    level = level_loader.load('level_1')
+"""
 from entity.level import Level
 from engine.constants import LEVELS
 
