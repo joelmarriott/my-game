@@ -20,8 +20,8 @@ def image_path(entity_type, image_key):
     return os.path.join('asset', 'image', entity_type, image_key)
 
 
-WINDOW_WIDTH = 500
-WINDOW_HEIGHT = 500
+WINDOW_WIDTH = 528
+WINDOW_HEIGHT = 528
 FPS = 60
 ENTITIES = {
     'enemy': {
@@ -31,6 +31,29 @@ ENTITIES = {
 LEVELS = {
     'level_1': 
         {
+            'map': [
+                [ 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'PAF', 'GRF', 'GRF' ],
+
+                [ 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'PAF', 'GRF', 'GRF' ],
+            
+                [ 'GRF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'GRF', 'GRF' ],
+            
+                [ 'GRF', 'PAF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF' ],
+            
+                [ 'GRF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'GRF' ],
+            
+                [ 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'PAF', 'GRF' ],
+            
+                [ 'GRF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'GRF' ],
+            
+                [ 'GRF', 'PAF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF' ],
+            
+                [ 'GRF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'GRF', 'GRF' ],
+
+                [ 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'PAF', 'GRF', 'GRF' ],
+            
+                [ 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'PAF', 'GRF', 'GRF' ]
+            ],
             'waypoints': [
                 (100, 100),
                 (400, 200),
@@ -38,4 +61,11 @@ LEVELS = {
                 (200, 300)
             ]    
         }
+}
+TILE_SIZE = 48
+TILES = {
+    'BEF': image_path('tile', 'beach_full.png'),
+    'DIF': image_path('tile', 'dirt_full.png'),
+    'GRF': image_path('tile', 'grass_full.png'),
+    'PAF': image_path('tile', 'path_full.png')
 }
