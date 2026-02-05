@@ -44,8 +44,9 @@ class Enemy(Sprite):
         then it is removed from the game
         """
         if self.target_waypoint >= len(self.waypoints):
-            self.kill()
-            return
+            self.target_waypoint = 0
+            #self.kill()
+            #return
         #
         self.target = Vector2(self.waypoints[self.target_waypoint])
         self.movement = self.target - self.position
