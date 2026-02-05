@@ -1,25 +1,61 @@
-from .constants import WINDOW_WIDTH, WINDOW_HEIGHT, FPS
+"""The game controller
+
+Typical usage example:
+    Game()
+"""
+from .constants import WINDOW_WIDTH, WINDOW_HEIGHT, FPS, ENTITIES
+from engine.util.entity import EntityLoader
 
 import pygame
 
 class Game():
+    """Main game controller
+    
+    Attributes:
+        screen (pygame.Surface)   : The rendered screen
+        clock  (pygame.time.Clock): The clock
+        run    (boolean)          : Controls game loop 
+    """
+
     def __init__(self):
+        "Initializes a game instance"
         self.screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
         self.clock = pygame.time.Clock()
         self.run = True
+
+        entity_loader = EntityLoader()
+        entity_loader.load(ENTITIES)
+        self.entities = entity_loader.entities
         self.start()
 
+
     def start(self):
-        pygame.init()
+        "Starts the game"
+        self.setup_window()
         while self.run:
             self.game_loop()
         #
         pygame.quit()
 
+
+    def setup_window(self):
+        "Sets up the game window"
+        pygame.init()
+        pygame.display.set_caption("Tower Defence")
+
+
+
     def game_loop(self):
+        "The game loop"
         self.clock.tick(FPS)
+        
+        for entity_group in self.entities.values():
+            entity_group.draw(self.screen)
+        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.run = False
             #
         #
+        
+        pygame.display.flip()
