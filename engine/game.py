@@ -5,6 +5,7 @@ Typical usage example:
 """
 from .constants import WINDOW_WIDTH, WINDOW_HEIGHT, FPS, ENTITIES
 from engine.util.entity import EntityLoader
+from engine.util.level import LevelLoader
 
 import pygame
 
@@ -22,6 +23,9 @@ class Game():
         self.screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
         self.clock = pygame.time.Clock()
         self.run = True
+        
+        level_loader = LevelLoader()
+        self.level = level_loader.load('level_1')
 
         entity_loader = EntityLoader()
         entity_loader.load(ENTITIES)
@@ -50,6 +54,8 @@ class Game():
         self.clock.tick(FPS)
         
         self.screen.fill("grey100")
+        
+        pygame.draw.lines(self.screen, "grey0", False, self.level.waypoints)
         
         for entity_group in self.entities.values():
             entity_group.update()
