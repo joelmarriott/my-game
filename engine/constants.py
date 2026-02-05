@@ -28,3 +28,14 @@ ENTITIES = {
         'enemy_1': image_path('enemy', 'enemy_1.png'),
     }
 }
+LEVELS = {
+    'level_1': 
+        {
+            'waypoints': [
+                (100, 100),
+                (400, 200),
+                (400, 100),
+                (200, 300)
+            ]    
+        }
+}

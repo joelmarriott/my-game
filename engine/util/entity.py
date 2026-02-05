@@ -7,25 +7,22 @@ Typical usage example:
     entities = entity_loader.entities
 """
 from entity.enemy import Enemy
+from engine.constants import ENTITIES
 
 import pygame
 
 class EntityLoader:
     "Loads entities from a given set of images"
-    def __init__(self):
+    def __init__(self, level):
         "Initializes an entity loader"
+        self.level = level
         self.images = {}
         self.entities = {}
 
 
-    def load(self, images):
-        """Loops through all entity types and image items to load the entities
-
-        Args:
-            images (dict): entity type to image items mapping
-                           (see ENTITIES in constants.py for example)
-        """
-        for entity_key, image_items in images.items():
+    def load(self):
+        "Loops through all entity types and image items to load the entities"
+        for entity_key, image_items in ENTITIES.items():
             self.load_image_items(entity_key, image_items)
         #
         self.load_entities()
@@ -79,5 +76,6 @@ class EntityLoader:
         #
         for image_key in image_items.keys():
             image_path = self.images[entity_key][image_key]
-            self.entities[entity_key].add(Enemy((200, 300), image_path))
+            enemy = Enemy(self.level.waypoints, image_path)
+            self.entities[entity_key].add(enemy)
         #

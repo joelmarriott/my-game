@@ -3,8 +3,9 @@
 Typical usage example:
     Game()
 """
-from .constants import WINDOW_WIDTH, WINDOW_HEIGHT, FPS, ENTITIES
+from .constants import WINDOW_WIDTH, WINDOW_HEIGHT, FPS
 from engine.util.entity import EntityLoader
+from engine.util.level import LevelLoader
 
 import pygame
 
@@ -22,9 +23,12 @@ class Game():
         self.screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
         self.clock = pygame.time.Clock()
         self.run = True
+        
+        level_loader = LevelLoader()
+        self.level = level_loader.load('level_1')
 
-        entity_loader = EntityLoader()
-        entity_loader.load(ENTITIES)
+        entity_loader = EntityLoader(self.level)
+        entity_loader.load()
         self.entities = entity_loader.entities
         self.start()
 
@@ -51,6 +55,8 @@ class Game():
         
         self.screen.fill("grey100")
         
+        self.draw_path()
+        
         for entity_group in self.entities.values():
             entity_group.update()
             entity_group.draw(self.screen)
@@ -62,3 +68,9 @@ class Game():
         #
         
         pygame.display.flip()
+        
+    
+    def draw_path(self):
+        "Draws the path for this level"
+        path = self.level.waypoints.copy()
+        pygame.draw.lines(self.screen, "grey0", False, path)
