@@ -1,18 +1,13 @@
-"""The game controller
+"""The enemy sprite class
 
 Typical usage example:
-    Game()
+    Enemy((100, 100), pygame.surface.Surface)
 """
+from engine.constants import WINDOW_WIDTH, WINDOW_HEIGHT
 import pygame
 
 class Enemy(pygame.sprite.Sprite):
-    """Main game controller
-    
-    Attributes:
-        screen (pygame.Surface)   : The rendered screen
-        clock  (pygame.time.Clock): The clock
-        run    (boolean)          : Controls game loop 
-    """
+    "The enemy sprite class"
 
     def __init__(self, position, image):
         """Initialises an enemy
@@ -25,3 +20,20 @@ class Enemy(pygame.sprite.Sprite):
         self.image = image
         self.rect = self.image.get_rect()
         self.rect.center = position
+
+
+    def update(self):
+        "Updates the enemy"
+        self.move()
+
+
+    def move(self):
+        """Moves the enemy
+        
+        Enemy moves across the screen and resets to the left once it
+        reaches the right edge
+        """
+        self.rect.x += 1
+        if self.rect.x > WINDOW_WIDTH - (self.rect.width / 2):
+            self.rect.x = 0 - (self.rect.width / 2)
+        #

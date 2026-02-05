@@ -49,7 +49,10 @@ class Game():
         "The game loop"
         self.clock.tick(FPS)
         
+        self.screen.fill("grey100")
+        
         for entity_group in self.entities.values():
+            entity_group.update()
             entity_group.draw(self.screen)
         
         for event in pygame.event.get():
