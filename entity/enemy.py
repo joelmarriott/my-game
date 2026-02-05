@@ -35,8 +35,13 @@ class Enemy(Sprite):
     def move(self):
         """Moves the enemy
         
-        Enemy follows waypoints in an endless loop
+        Enemy follows waypoints until it reached the end of the path,
+        then it is removed from the game
         """
+        if self.target_waypoint >= len(self.waypoints):
+            self.kill()
+            return
+        #
         self.target = Vector2(self.waypoints[self.target_waypoint])
         self.movement = self.target - self.pos
         
@@ -48,8 +53,5 @@ class Enemy(Sprite):
                 self.pos += self.movement.normalize() * distance
             #
             self.target_waypoint += 1
-            if self.target_waypoint >= len(self.waypoints):
-                self.target_waypoint = 0
-            #
         #
         self.rect.center = self.pos

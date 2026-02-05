@@ -73,6 +73,4 @@ class Game():
     def draw_path(self):
         "Draws the path for this level"
         path = self.level.waypoints.copy()
-        path.append(self.level.waypoints[-1])
-        path.append(self.level.waypoints[0])
         pygame.draw.lines(self.screen, "grey0", False, path)
