@@ -8,7 +8,7 @@ Typical usage example:
 """
 from entity.enemy import Enemy
 from entity.turret import Turret
-from engine.constants import ENTITIES
+from engine.constants import ENTITIES, TILE_SIZE
 
 import pygame
 
@@ -94,5 +94,7 @@ class Loader:
             x (int): x coordinate of the turret
             y (int): y coordinate of the turret
         """
-        turret = Turret((x, y), self.images['turret']['turret_1'])
+        tile_x = x // TILE_SIZE
+        tile_y = y // TILE_SIZE
+        turret = Turret(tile_x, tile_y, self.images['turret']['turret_1'])
         self.entities['turret'].add(turret)
