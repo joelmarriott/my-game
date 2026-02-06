@@ -19,7 +19,6 @@ class Loader:
         self.level = level
         self.images = {}
         self.entities = {}
-        self.turrets = {}
 
 
     def load(self):
@@ -96,5 +95,14 @@ class Loader:
         """
         tile_x = x // TILE_SIZE
         tile_y = y // TILE_SIZE
+        if self.level.map[tile_y][tile_x] != 'GRF':
+            return
+        #
+        for turret in self.entities['turret']:
+            if turret.tile_x == tile_x and turret.tile_y == tile_y:
+                print('Space is occupied by another turret')
+                return
+            #
+        #
         turret = Turret(tile_x, tile_y, self.images['turret']['turret_1'])
         self.entities['turret'].add(turret)
