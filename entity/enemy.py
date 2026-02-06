@@ -3,7 +3,7 @@
 Typical usage example:
     Enemy((100, 100), pygame.surface.Surface)
 """
-from engine.constants import WINDOW_WIDTH, WINDOW_HEIGHT
+from engine.constants import TILE_SIZE
 from pygame.math import Vector2
 from pygame.sprite import Sprite
 
@@ -44,7 +44,8 @@ class Enemy(Sprite):
         then it is removed from the game
         """
         if self.target_waypoint >= len(self.waypoints):
-            self.target_waypoint = 0
+            self.target_waypoint = 1
+            self.position = Vector2(self.waypoints[0])
             #self.kill()
             #return
         #
@@ -68,6 +69,7 @@ class Enemy(Sprite):
 
 
     def rotate_and_update_image(self):
+        "Rotates the image and updates the rect"
         self.image = pygame.transform.rotate(self.original_image, self.angle)
         self.rect = self.image.get_rect()
         self.rect.center = self.position

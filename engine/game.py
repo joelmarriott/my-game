@@ -52,8 +52,6 @@ class Game():
         "The game loop"
         self.clock.tick(FPS)
         
-        self.screen.fill("grey100")
-        
         self.level.draw(self.screen)
         self.draw_path()
         
