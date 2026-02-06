@@ -9,7 +9,7 @@ from engine.util.loader import Loader
 from entity.level import Level
 from entity.turret import Turret
 
-import pygame
+import logging, pygame
 
 class Game():
     """Main game controller
@@ -22,6 +22,7 @@ class Game():
 
     def __init__(self):
         "Initializes a game instance"
+        logging.debug("Initialising Game")
         self.screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
         self.clock = pygame.time.Clock()
         self.run = True
