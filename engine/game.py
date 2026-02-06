@@ -3,9 +3,11 @@
 Typical usage example:
     Game()
 """
+from .constants import PLAYAREA_WIDTH, PLAYAREA_HEIGHT
 from .constants import WINDOW_WIDTH, WINDOW_HEIGHT, FPS
-from engine.util.entity import EntityLoader
+from engine.util.loader import Loader
 from entity.level import Level
+from entity.turret import Turret
 
 import pygame
 
@@ -25,9 +27,8 @@ class Game():
         self.run = True
         self.level = Level('level_1')
 
-        entity_loader = EntityLoader(self.level)
-        entity_loader.load()
-        self.entities = entity_loader.entities
+        self.loader = Loader(self.level)
+        self.loader.load()
         self.start()
 
 
@@ -55,13 +56,21 @@ class Game():
         self.level.draw(self.screen)
         self.draw_path()
         
-        for entity_group in self.entities.values():
+        for entity_group in self.loader.entities.values():
             entity_group.update()
             entity_group.draw(self.screen)
         
         for event in pygame.event.get():
+            
             if event.type == pygame.QUIT:
                 self.run = False
+            #
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                mouse_position = pygame.mouse.get_pos()
+                mouse_x = mouse_position[0]
+                mouse_y = mouse_position[1]
+                if mouse_x < PLAYAREA_WIDTH and mouse_y < PLAYAREA_HEIGHT:
+                    self.loader.create_turret(mouse_x, mouse_y)
             #
         #
         

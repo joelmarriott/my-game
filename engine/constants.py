@@ -24,12 +24,19 @@ ROWS = 15
 COLUMNS = 15
 TILE_SIZE = 48
 
-WINDOW_WIDTH = TILE_SIZE * COLUMNS
+PLAYAREA_WIDTH = TILE_SIZE * COLUMNS
+PLAYAREA_HEIGHT = TILE_SIZE * ROWS
+
+WINDOW_WIDTH = PLAYAREA_WIDTH + 200
 WINDOW_HEIGHT = TILE_SIZE * ROWS
+
 FPS = 60
 ENTITIES = {
     'enemy': {
         'enemy_1': image_path('enemy', 'enemy_1.png'),
+    },
+    'turret': {
+        'turret_1': image_path('turret', 'turret_1.gif'),
     }
 }
 LEVELS = {

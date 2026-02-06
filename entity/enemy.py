@@ -17,7 +17,7 @@ class Enemy(Sprite):
         """Initialises an enemy
 
         Args:
-            position (tuple): x,y position of the enemy (e.g. (100, 100))
+            waypoints (list): x,y tuples of waypoints to follow
             image (pygame.surface.Surface): image for the enemy
         """
         Sprite.__init__(self)
