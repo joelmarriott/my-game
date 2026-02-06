@@ -20,7 +20,7 @@ class Level():
             waypoints (list): x,y tuple coordinates for enemy entities to follow
         """
         level_config = LEVELS[level_id]
-        self.waypoints = level_config['waypoints']
+        self.waypoints = self.to_coordinates(level_config['waypoints'])
         self.map = level_config['map']
         self.tiles = {}
     
@@ -49,3 +49,21 @@ class Level():
                 screen.blit(self.tiles[tile].image, (x, y))
             #
         #
+        
+        
+    def to_coordinates(self, waypoints):
+        """Converts tile waypoints to pixel coordinates
+
+        Args:
+            waypoints (list): x,y tuple coordinates of tiles
+
+        Returns:
+            list: x,y tuple coordinates of tile centers (pixels)
+        """
+        coordinates = []
+        for waypoint in waypoints:
+            x = waypoint[0] * TILE_SIZE - (TILE_SIZE / 2)
+            y = waypoint[1] * TILE_SIZE - (TILE_SIZE / 2)
+            coordinates.append((x, y))
+        #
+        return coordinates

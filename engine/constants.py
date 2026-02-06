@@ -20,8 +20,12 @@ def image_path(entity_type, image_key):
     return os.path.join('asset', 'image', entity_type, image_key)
 
 
-WINDOW_WIDTH = 528
-WINDOW_HEIGHT = 528
+ROWS = 15
+COLUMNS = 15
+TILE_SIZE = 48
+
+WINDOW_WIDTH = TILE_SIZE * COLUMNS
+WINDOW_HEIGHT = TILE_SIZE * ROWS
 FPS = 60
 ENTITIES = {
     'enemy': {
@@ -32,37 +36,51 @@ LEVELS = {
     'level_1': 
         {
             'map': [
-                [ 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'PAF', 'GRF', 'GRF' ],
-
-                [ 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'PAF', 'GRF', 'GRF' ],
-            
-                [ 'GRF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'GRF', 'GRF' ],
-            
-                [ 'GRF', 'PAF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF' ],
-            
-                [ 'GRF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'GRF' ],
-            
-                [ 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'PAF', 'GRF' ],
-            
-                [ 'GRF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'GRF' ],
-            
-                [ 'GRF', 'PAF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF' ],
-            
-                [ 'GRF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'GRF', 'GRF' ],
-
-                [ 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'PAF', 'GRF', 'GRF' ],
-            
-                [ 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'PAF', 'GRF', 'GRF' ]
+                [ 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'PAF', 'GRF', 'GRF' ],
+                
+                [ 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'PAF', 'GRF', 'GRF' ],
+                
+                [ 'GRF', 'GRF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'GRF', 'GRF' ],
+                
+                [ 'GRF', 'GRF', 'PAF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF' ],
+                
+                [ 'GRF', 'GRF', 'PAF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF' ],
+                
+                [ 'GRF', 'GRF', 'PAF', 'GRF', 'GRF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'GRF', 'GRF' ],
+                
+                [ 'GRF', 'GRF', 'PAF', 'GRF', 'GRF', 'PAF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'PAF', 'GRF', 'GRF' ],
+                
+                [ 'GRF', 'GRF', 'PAF', 'GRF', 'GRF', 'PAF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'PAF', 'GRF', 'GRF' ],
+                
+                [ 'GRF', 'GRF', 'PAF', 'GRF', 'GRF', 'PAF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'PAF', 'GRF', 'GRF' ],
+                
+                [ 'GRF', 'GRF', 'PAF', 'GRF', 'GRF', 'PAF', 'GRF', 'GRF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'GRF', 'GRF' ],
+                
+                [ 'GRF', 'GRF', 'PAF', 'GRF', 'GRF', 'PAF', 'GRF', 'GRF', 'PAF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF' ],
+                
+                [ 'GRF', 'GRF', 'PAF', 'GRF', 'GRF', 'PAF', 'GRF', 'GRF', 'PAF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF' ],
+                
+                [ 'GRF', 'GRF', 'PAF', 'PAF', 'PAF', 'PAF', 'GRF', 'GRF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF', 'PAF' ],
+                
+                [ 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF' ],
+                
+                [ 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF', 'GRF' ],
             ],
             'waypoints': [
-                (100, 100),
-                (400, 200),
-                (400, 100),
-                (200, 300)
+                (13, -1),
+                (13, 3),
+                (3, 3),
+                (3, 13),
+                (6, 13),
+                (6, 6),
+                (13, 6),
+                (13, 10),
+                (9, 10),
+                (9, 13),
+                (16, 13)
             ]    
         }
 }
-TILE_SIZE = 48
 TILES = {
     'BEF': image_path('tile', 'beach_full.png'),
     'DIF': image_path('tile', 'dirt_full.png'),
