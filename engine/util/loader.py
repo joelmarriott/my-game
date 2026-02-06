@@ -7,17 +7,19 @@ Typical usage example:
     entities = entity_loader.entities
 """
 from entity.enemy import Enemy
+from entity.turret import Turret
 from engine.constants import ENTITIES
 
 import pygame
 
-class EntityLoader:
+class Loader:
     "Loads entities from a given set of images"
     def __init__(self, level):
         "Initializes an entity loader"
         self.level = level
         self.images = {}
         self.entities = {}
+        self.turrets = {}
 
 
     def load(self):
@@ -76,6 +78,21 @@ class EntityLoader:
         #
         for image_key in image_items.keys():
             image_path = self.images[entity_key][image_key]
-            enemy = Enemy(self.level.waypoints, image_path)
-            self.entities[entity_key].add(enemy)
+            if entity_key == 'enemy':
+                entity = Enemy(self.level.waypoints, image_path)
+            else:
+                return
+            #
+            self.entities[entity_key].add(entity)
         #
+        
+    
+    def create_turret(self, x, y):
+        """Creates a turret at the given coordinates
+
+        Args:
+            x (int): x coordinate of the turret
+            y (int): y coordinate of the turret
+        """
+        turret = Turret((x, y), self.images['turret']['turret_1'])
+        self.entities['turret'].add(turret)
