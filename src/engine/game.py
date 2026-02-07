@@ -68,6 +68,7 @@ class Game():
             #
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 mouse_position = pygame.mouse.get_pos()
+                logging.debug(f'Mouse click at: {mouse_position}')
                 mouse_x = mouse_position[0]
                 mouse_y = mouse_position[1]
                 if mouse_x < PLAYAREA_WIDTH and mouse_y < PLAYAREA_HEIGHT:
