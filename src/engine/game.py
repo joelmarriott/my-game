@@ -5,9 +5,10 @@ Typical usage example:
 """
 from .constants import PLAYAREA_WIDTH, PLAYAREA_HEIGHT
 from .constants import WINDOW_WIDTH, WINDOW_HEIGHT, FPS
-from engine.util.loader import Loader
+from engine.util.entity_loader import EntityLoader
+from engine.util.ui_loader import UiLoader
 from entity.level import Level
-from entity.turret import Turret
+from entity.button import Button
 
 import logging, pygame
 
@@ -28,8 +29,12 @@ class Game():
         self.run = True
         self.level = Level('level_1')
 
-        self.loader = Loader(self.level)
-        self.loader.load()
+        self.entity_loader = EntityLoader(self.level)
+        self.entity_loader.load()
+        
+        self.ui_loader = UiLoader()
+        self.ui_loader.load()
+        
         self.start()
 
 
@@ -54,12 +59,19 @@ class Game():
         "The game loop"
         self.clock.tick(FPS)
         
+        self.screen.fill("grey100")
+        
         self.level.draw(self.screen)
         self.draw_path()
         
-        for entity_group in self.loader.entities.values():
+        for entity_group in self.entity_loader.entities.values():
             entity_group.update()
             entity_group.draw(self.screen)
+        
+        for element_group in self.ui_loader.elements.values():
+            for element in element_group:
+                element.draw(self.screen)
+            #
         
         for event in pygame.event.get():
             
@@ -72,7 +84,7 @@ class Game():
                 mouse_x = mouse_position[0]
                 mouse_y = mouse_position[1]
                 if mouse_x < PLAYAREA_WIDTH and mouse_y < PLAYAREA_HEIGHT:
-                    self.loader.create_turret(mouse_x, mouse_y)
+                    self.entity_loader.create_turret(mouse_x, mouse_y)
             #
         #
         

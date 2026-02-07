@@ -32,17 +32,19 @@ TILE_SIZE = 48
 PLAYAREA_WIDTH = TILE_SIZE * COLUMNS
 PLAYAREA_HEIGHT = TILE_SIZE * ROWS
 
-WINDOW_WIDTH = PLAYAREA_WIDTH + 200
+SIDE_PANEL_WIDTH = 300
+
+WINDOW_WIDTH = PLAYAREA_WIDTH + SIDE_PANEL_WIDTH
 WINDOW_HEIGHT = TILE_SIZE * ROWS
 
 FPS = 60
 ENTITIES = {
     'enemy': {
-        'enemy_1': asset_path('image', 'enemy', 'enemy_1.png'),
+        'enemy_1': asset_path('image', 'enemy', 'enemy_1.png')
     },
     'turret': {
-        'turret_1': asset_path('image', 'turret', 'turret_1.gif'),
-    }
+        'turret_1': asset_path('image', 'turret', 'turret_1.gif')
+    },
 }
 LEVELS = {
     'level_1': 
@@ -98,4 +100,18 @@ TILES = {
     'DIF': asset_path('image', 'tile', 'dirt_full.png'),
     'GRF': asset_path('image', 'tile', 'grass_full.png'),
     'PAF': asset_path('image', 'tile', 'path_full.png')
+}
+UI_ELEMENTS = {
+    'button': {
+        'buy_turret': {
+            'asset_path': asset_path('image', 'button', 'buy_turret.png'),
+            'position_x': PLAYAREA_WIDTH + 30,
+            'position_y': 120
+        },
+        'cancel': {
+            'asset_path': asset_path('image', 'button', 'cancel.png'),
+            'position_x': PLAYAREA_WIDTH + 50,
+            'position_y': 180
+        }
+    }
 }

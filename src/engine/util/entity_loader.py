@@ -12,7 +12,7 @@ from engine.constants import ENTITIES, TILE_SIZE
 
 import logging, pygame
 
-class Loader:
+class EntityLoader:
     "Loads entities from a given set of images"
     def __init__(self, level):
         "Initializes an entity loader"
