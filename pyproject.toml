@@ -1,0 +1,17 @@
+[project]
+name = "my-game"
+version = "0.0.1"
+authors = [
+  { name="Joel Marriott", email="joel.marriott.uk@gmail.com" },
+]
+description = "My unnamed game"
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/joelmarriott/my-game"
+Issues = "https://github.com/joelmarriott/my-game/issues"

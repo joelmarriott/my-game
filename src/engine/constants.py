@@ -4,20 +4,25 @@ Typical usage example:
     from constants import WINDOW_WIDTH
     print(WINDOW_WIDTH)
 """
+from pathlib import Path
 import os
 
 
-def image_path(entity_type, image_key):
-    """Returns the image path given the entity type and image key
+ROOT = Path(__file__).parent.parent
+
+
+def asset_path(asset_type, entity_type, asset_key):
+    """Returns the asset path given the entity type and image key
 
     Args:
+        asset_type  (str): Asset type (e.g. 'image')
         entity_type (str): Entity type (e.g. 'enemy')
-        image_key   (str): image key (e.g. 'enemy_1')
+        asset_key   (str): Asset key (e.g. 'enemy_1.png')
 
     Returns:
         str: os safe path to the image (e.g. 'asset/image/enemy/enemy_1.png')
     """
-    return os.path.join('asset', 'image', entity_type, image_key)
+    return os.path.join(ROOT, 'asset', asset_type, entity_type, asset_key)
 
 
 ROWS = 15
@@ -33,10 +38,10 @@ WINDOW_HEIGHT = TILE_SIZE * ROWS
 FPS = 60
 ENTITIES = {
     'enemy': {
-        'enemy_1': image_path('enemy', 'enemy_1.png'),
+        'enemy_1': asset_path('image', 'enemy', 'enemy_1.png'),
     },
     'turret': {
-        'turret_1': image_path('turret', 'turret_1.gif'),
+        'turret_1': asset_path('image', 'turret', 'turret_1.gif'),
     }
 }
 LEVELS = {
@@ -89,8 +94,8 @@ LEVELS = {
         }
 }
 TILES = {
-    'BEF': image_path('tile', 'beach_full.png'),
-    'DIF': image_path('tile', 'dirt_full.png'),
-    'GRF': image_path('tile', 'grass_full.png'),
-    'PAF': image_path('tile', 'path_full.png')
+    'BEF': asset_path('image', 'tile', 'beach_full.png'),
+    'DIF': asset_path('image', 'tile', 'dirt_full.png'),
+    'GRF': asset_path('image', 'tile', 'grass_full.png'),
+    'PAF': asset_path('image', 'tile', 'path_full.png')
 }

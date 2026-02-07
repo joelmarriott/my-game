@@ -7,6 +7,7 @@ from engine.constants import TILE_SIZE
 from pygame.math import Vector2
 from pygame.sprite import Sprite
 
+import logging
 import math
 import pygame
 
@@ -28,6 +29,7 @@ class Enemy(Sprite):
         self.angle = 0
         self.original_image = image
         self.rotate_and_update_image()
+        logging.debug(f'Created: {self}')
 
 
     def update(self):
@@ -43,12 +45,6 @@ class Enemy(Sprite):
         Enemy follows waypoints until it reached the end of the path,
         then it is removed from the game
         """
-        if self.target_waypoint >= len(self.waypoints):
-            self.target_waypoint = 1
-            self.position = Vector2(self.waypoints[0])
-            #self.kill()
-            #return
-        #
         self.target = Vector2(self.waypoints[self.target_waypoint])
         self.movement = self.target - self.position
         
@@ -60,6 +56,14 @@ class Enemy(Sprite):
                 self.position += self.movement.normalize() * distance
             #
             self.target_waypoint += 1
+            if self.target_waypoint >= len(self.waypoints):
+                self.target_waypoint = 1
+                self.position = Vector2(self.waypoints[0])
+                #self.kill()
+                #return
+            #
+            logging.debug(f'Enemy reached position={self.position}, '\
+                f'target_waypoint={self.waypoints[self.target_waypoint]}')
 
 
     def calculate_rotation(self):
@@ -73,3 +77,9 @@ class Enemy(Sprite):
         self.image = pygame.transform.rotate(self.original_image, self.angle)
         self.rect = self.image.get_rect()
         self.rect.center = self.position
+        
+        
+    def __repr__(self):
+        return f'Enemy(position={self.position}, '\
+            f'target_waypoint={self.waypoints[self.target_waypoint]}, '\
+                f'speed={self.speed}, angle={self.angle})'

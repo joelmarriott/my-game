@@ -10,7 +10,7 @@ from entity.enemy import Enemy
 from entity.turret import Turret
 from engine.constants import ENTITIES, TILE_SIZE
 
-import pygame
+import logging, pygame
 
 class Loader:
     "Loads entities from a given set of images"
@@ -96,13 +96,17 @@ class Loader:
         tile_x = x // TILE_SIZE
         tile_y = y // TILE_SIZE
         if self.level.map[tile_y][tile_x] != 'GRF':
+            logging.warning(f'Tile position ({tile_x}, {tile_y}) '\
+                'is not buildable')
             return
         #
         for turret in self.entities['turret']:
             if turret.tile_x == tile_x and turret.tile_y == tile_y:
-                print('Space is occupied by another turret')
+                logging.warning(f'Tile position ({tile_x}, {tile_y}) '\
+                    'is occupied by another turret')
                 return
             #
         #
+        logging.info(f'Creating turret at tile position ({tile_x}, {tile_y})')
         turret = Turret(tile_x, tile_y, self.images['turret']['turret_1'])
         self.entities['turret'].add(turret)

@@ -9,7 +9,7 @@ from engine.util.loader import Loader
 from entity.level import Level
 from entity.turret import Turret
 
-import pygame
+import logging, pygame
 
 class Game():
     """Main game controller
@@ -22,6 +22,7 @@ class Game():
 
     def __init__(self):
         "Initializes a game instance"
+        logging.debug("Initialising Game")
         self.screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
         self.clock = pygame.time.Clock()
         self.run = True
@@ -67,6 +68,7 @@ class Game():
             #
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 mouse_position = pygame.mouse.get_pos()
+                logging.debug(f'Mouse click at: {mouse_position}')
                 mouse_x = mouse_position[0]
                 mouse_y = mouse_position[1]
                 if mouse_x < PLAYAREA_WIDTH and mouse_y < PLAYAREA_HEIGHT:
